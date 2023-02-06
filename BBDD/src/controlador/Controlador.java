@@ -19,35 +19,32 @@ import vista.VentanaPpal;
  */
 public class Controlador {
 
-	// VEntanas del sistema
+	// Ventanas del sistema, objetos de la vista
 	private VentanaPpal ventanaPpal;
 	private DialogoEditoriales dialogoEditoriales;
 
-	private NuevaEditorial NuevaEditorial;
+	private NuevaEditorial nuevaEditorial;
 	
 	// Objetos DAO o CRUD de la base de datos
 	private EditorialDAO editorialDAO;
 	
 	public Controlador() {
-		// Creamos las ventanas de la aplicaci�n
+		// Instanciamos las ventanas de la aplicación
 		ventanaPpal = new VentanaPpal();
 		dialogoEditoriales = new DialogoEditoriales();
-		NuevaEditorial = new NuevaEditorial();
+		nuevaEditorial = new NuevaEditorial();
 		
+		// Establecemos los controladores para las vistas
 		// Dando acceso al controlador desde las vistas
 		ventanaPpal.setControlador(this);
 		dialogoEditoriales.setControlador(this);
-		NuevaEditorial.setControlador(this);
+		nuevaEditorial.setControlador(this);
 		
-		// Creamos los objetos DAO
+		// Instanciamos los objetos DAO
 		editorialDAO = new EditorialDAO();
 	}
 	
 	public void inciarPrograma() {
-		
-		
-		
-		
 		
 		ventanaPpal.setVisible(true);
 	}
@@ -59,33 +56,33 @@ public class Controlador {
 	}
 	
 	public void mostrarNuevaEditorial() {
-		NuevaEditorial.setEditorial(null);
-		NuevaEditorial.setVisible(true);
+		nuevaEditorial.setEditorial(null);
+		nuevaEditorial.setVisible(true);
 	}
 	
 	public void insertarEditorial(Editorial ed) {
 		int res=editorialDAO.insertarEditorial(ed);
 		if (res==0) {
-			JOptionPane.showMessageDialog(NuevaEditorial, "Error no se ha podido insertar");
+			JOptionPane.showMessageDialog(nuevaEditorial, "Error no se ha podido insertar");
 		} else {
-			JOptionPane.showMessageDialog(NuevaEditorial, "Editorial a�adido correctamente.");
-			NuevaEditorial.setVisible(false);
+			JOptionPane.showMessageDialog(nuevaEditorial, "Editorial a�adido correctamente.");
+			nuevaEditorial.setVisible(false);
 		}
 	}
 
 	public void mostrarActualizarEditorial(int codEditorial) {
 		Editorial e = editorialDAO.obtenerEditorial(codEditorial);
-		NuevaEditorial.setEditorial(e);
-		NuevaEditorial.setVisible(true);
+		nuevaEditorial.setEditorial(e);
+		nuevaEditorial.setVisible(true);
 	}
 
 	public void actualizarEditorial(Editorial ed) {
 		int res=editorialDAO.actualizarEditorial(ed);
 		if (res==0) {
-			JOptionPane.showMessageDialog(NuevaEditorial, "Error no se ha podido actualizar");
+			JOptionPane.showMessageDialog(nuevaEditorial, "Error no se ha podido actualizar");
 		} else {
-			JOptionPane.showMessageDialog(NuevaEditorial, "Editorial actualizado correctamente.");
-			NuevaEditorial.setVisible(false);
+			JOptionPane.showMessageDialog(nuevaEditorial, "Editorial actualizado correctamente.");
+			nuevaEditorial.setVisible(false);
 		}
 		mostrarEditoriales();
 	}

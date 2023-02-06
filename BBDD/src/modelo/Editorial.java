@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class Editorial {
 
-	private int codEditorial;
+	private int codEditorial;	//al ser de tipo unsigned, podríamos limitarlo por código
 	private String nombre;
 	private int anio;
 	

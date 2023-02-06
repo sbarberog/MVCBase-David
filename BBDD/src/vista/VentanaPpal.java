@@ -31,21 +31,21 @@ public class VentanaPpal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[][grow][][grow][]", "[][][][][][][]"));
 		
-		JButton btnNewButton = new JButton("MostarEditoriales");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnMostrarEd = new JButton("MostarEditoriales");
+		btnMostrarEd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.mostrarEditoriales();
 			}
 		});
-		contentPane.add(btnNewButton, "cell 1 1,growx");
+		contentPane.add(btnMostrarEd, "cell 1 1,growx");
 		
-		JButton btnNewButton_4 = new JButton("Insertar Editorial");
-		btnNewButton_4.addActionListener(new ActionListener() {
+		JButton btnInsertarEd = new JButton("Insertar Editorial");
+		btnInsertarEd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controlador.mostrarNuevaEditorial();
 			}
 		});
-		contentPane.add(btnNewButton_4, "cell 1 3,growx");
+		contentPane.add(btnInsertarEd, "cell 1 3,growx");
 	}
 
 
