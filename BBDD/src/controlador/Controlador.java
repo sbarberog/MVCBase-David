@@ -63,9 +63,9 @@ public class Controlador {
 	public void insertarEditorial(Editorial ed) {
 		int res=editorialDAO.insertarEditorial(ed);
 		if (res==0) {
-			JOptionPane.showMessageDialog(nuevaEditorial, "Error no se ha podido insertar");
+			JOptionPane.showMessageDialog(nuevaEditorial, "Error. No se ha podido insertar");
 		} else {
-			JOptionPane.showMessageDialog(nuevaEditorial, "Editorial a�adido correctamente.");
+			JOptionPane.showMessageDialog(nuevaEditorial, "Editorial añadido correctamente.");
 			nuevaEditorial.setVisible(false);
 		}
 	}
@@ -79,10 +79,20 @@ public class Controlador {
 	public void actualizarEditorial(Editorial ed) {
 		int res=editorialDAO.actualizarEditorial(ed);
 		if (res==0) {
-			JOptionPane.showMessageDialog(nuevaEditorial, "Error no se ha podido actualizar");
+			JOptionPane.showMessageDialog(nuevaEditorial, "Error. No se ha podido actualizar");
 		} else {
 			JOptionPane.showMessageDialog(nuevaEditorial, "Editorial actualizado correctamente.");
 			nuevaEditorial.setVisible(false);
+		}
+		mostrarEditoriales();
+	}
+
+	public void eliminarEditorial(int codEditorial) {
+		int res=editorialDAO.eliminarEditorial(codEditorial);
+		if (res==0) {
+			JOptionPane.showMessageDialog(nuevaEditorial, "Error. No se ha podido eliminar");
+		} else {
+			JOptionPane.showMessageDialog(nuevaEditorial, "Editorial eliminada correctamente.");
 		}
 		mostrarEditoriales();
 	}

@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -61,6 +63,12 @@ public class DialogoEditoriales extends JDialog {
 					public Class getColumnClass(int columnIndex) {
 						return columnTypes[columnIndex];
 					}
+					boolean[] columnEditables = new boolean[] {
+						false, false, false
+					};
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
 				});
 				table.getColumnModel().getColumn(0).setPreferredWidth(99);
 				scrollPane.setViewportView(table);
@@ -72,18 +80,27 @@ public class DialogoEditoriales extends JDialog {
 				contentPanel.add(panel, "cell 0 2,grow");
 				panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 				{
-					JButton btnNewButton_1 = new JButton("Modificar");
-					btnNewButton_1.addActionListener(new ActionListener() {
+					JButton btnModificar = new JButton("Modificar");
+					btnModificar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							llamarActualizar();
 						}
 					});
-					panel.add(btnNewButton_1);
-					btnNewButton_1.setHorizontalAlignment(SwingConstants.RIGHT);
+					{
+						JButton btnEliminar = new JButton("Eliminar");
+						btnEliminar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								llamarEliminar();
+							}
+						});
+						panel.add(btnEliminar);
+					}
+					panel.add(btnModificar);
+					btnModificar.setHorizontalAlignment(SwingConstants.RIGHT);
 				}
-				JButton btnNewButton = new JButton("Cerrar");
-				panel.add(btnNewButton);
-				btnNewButton.addActionListener(new ActionListener() {
+				JButton btnCerrar = new JButton("Cerrar");
+				panel.add(btnCerrar);
+				btnCerrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setVisible(false);
 					}
@@ -92,13 +109,29 @@ public class DialogoEditoriales extends JDialog {
 		}
 	}
 	
+	protected void llamarEliminar() {
+		int fila=table.getSelectedRow();
+		if(fila==-1) {
+			JOptionPane.showMessageDialog(table, "Debe seleccionar una editorial");
+			return;
+		}
+		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+		int codEditorial = (int) modelo.getValueAt(fila, 0);
+		
+		controlador.eliminarEditorial(codEditorial);
+		
+	}
+
 	protected void llamarActualizar() {
 		int fila=table.getSelectedRow();
+		if(fila==-1) {
+			JOptionPane.showMessageDialog(table, "Debe seleccionar una editorial");
+			return;
+		}
 		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
 		int codEditorial = (int) modelo.getValueAt(fila, 0);
 		
 		controlador.mostrarActualizarEditorial(codEditorial);
-		
 	}
 
 	public void setListaEditoriales(ArrayList<Editorial> lista) {

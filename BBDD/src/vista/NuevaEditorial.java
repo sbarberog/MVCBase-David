@@ -27,6 +27,7 @@ public class NuevaEditorial extends JFrame {
 	private JTextField txtAño;
 	private Controlador controlador;
 	private Editorial editorial;
+	private JLabel lblTitulo;
 
 	/**
 	 * Launch the application.
@@ -42,12 +43,12 @@ public class NuevaEditorial extends JFrame {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new MigLayout("", "[][grow]", "[][][][][]"));
 		{
-			JLabel lblNewLabel = new JLabel("Insercion de editoriales");
-			lblNewLabel.setOpaque(true);
-			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setBackground(Color.BLACK);
-			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-			contentPanel.add(lblNewLabel, "cell 0 0 2 1,growx");
+			lblTitulo = new JLabel("Insercion de editoriales");
+			lblTitulo.setOpaque(true);
+			lblTitulo.setForeground(Color.WHITE);
+			lblTitulo.setBackground(Color.BLACK);
+			lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 24));
+			contentPanel.add(lblTitulo, "cell 0 0 2 1,growx");
 		}
 		{
 			JLabel lblNewLabel_1 = new JLabel("Nombre:");
@@ -107,15 +108,14 @@ public class NuevaEditorial extends JFrame {
 			
 			ed.setNombre(nombre);
 			ed.setAño(año);
-			if (this.editorial == null)
+			if (this.editorial == null) {
 				controlador.insertarEditorial(ed);
-			else {
+			}else {
 				ed.setCodEditorial(this.editorial.getCodEditorial());
 				controlador.actualizarEditorial(ed);
-				
 			}
 		} catch (NumberFormatException e ) {
-			JOptionPane.showMessageDialog(null, "Introduzca un año correcto");
+			JOptionPane.showMessageDialog(this, "Introduzca un año correcto");
 		}
 		
 		
@@ -131,9 +131,11 @@ public class NuevaEditorial extends JFrame {
 	public void setEditorial(Editorial e) {
 		editorial = e;
 		if (e!=null) {
+			lblTitulo.setText("Modificar Editorial");
 			txtNombre.setText(editorial.getNombre());
 			txtAño.setText(""+editorial.getAño());
 		} else {
+			lblTitulo.setText("Insertar Editorial");
 			txtNombre.setText("");
 			txtAño.setText("");
 		}

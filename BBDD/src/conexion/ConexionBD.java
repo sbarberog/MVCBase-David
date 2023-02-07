@@ -55,6 +55,7 @@ public class ConexionBD {
 		try {
 			conexion.close();
 			conexion=null;
+			System.out.println("Conexión liberada correctamente");
 		} catch (SQLException e) {
 			System.out.println("Erorr cerrrando la conexion "+ e.getMessage());
 		}
